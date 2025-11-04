@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -62,8 +62,29 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Activer le service Bluetooth
+  hardware.bluetooth =
+  {
+    enable = true;
+    powerOnBoot = true;
+    settings =
+    {
+      General =
+      {
+        Experimental = true;
+        FastConnectable = true;
+      };
+      Policy =
+      {
+        AutoEnable = true;
+      };
+    };
+  };
+
+  services.blueman.enable = true;
+
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -85,13 +106,19 @@
   users.users.lgalloux = {
     isNormalUser = true;
     description = "lgalloux";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "network" "lp" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
     ];
     shell = pkgs.zsh;
   };
+
+security.sudo.extraConfig = ''
+  # Désactive la vérification qui empêche sudoedit de fonctionner
+  # dans certains cas sur NixOS.
+  Defaults !sudoedit_checkdir
+'';
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -102,18 +129,27 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  virtualisation.docker.enable = true;
+virtualisation.docker = {
+  enable = true;
+  daemon.settings = {
+    registry-mirrors = [ "https://mirror.gcr.io" ];
+  };
+};
+
+  # languages.python = {
+  #   enable = true;
+  #   venv.enable = true;
+  #   venv.requirements = lib.readFile ./requirements.txt
+  # }
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-	helix valgrind clang clang-tools vim norminette gnumake bear git cmake rr gdb gitu xsel discord-ptb
-	pkgs.obsidian pkgs.kalker pkgs.lldb_18 pkgs.direnv pkgs.irssi pkgs.netcat-gnu pkgs.tcpdump pkgs.openssl
-  pkgs.musescore
+	helix valgrind clang clang-tools vim gnumake bear git cmake rr gdb gitu xsel discord-ptb
+	obsidian kalker lldb_18 direnv musescore man-pages
+  man-pages-posix kitty bluez-tools nixd
   ];
-
+ 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
