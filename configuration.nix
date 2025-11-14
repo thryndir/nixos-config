@@ -17,6 +17,11 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
+  programs.hyprland =
+  {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   users.users.lgalloux =
   {
