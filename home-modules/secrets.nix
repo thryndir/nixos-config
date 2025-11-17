@@ -23,19 +23,13 @@
     
   services.ssh-agent.enable = true;
 
-  home.file =
-  {
-    ".local/share/dbus-1/services/org.freedesktop.secrets.service" =
-    {
-    test =
-      ''
-        [D-BUS Service]
-        Name=org.freedesktop.secrets
-        Exec=${pkgs.pass-secret-service}/bin/pass_secret_service
-        SystemdService=dbus-org.freedesktop.secrets.service
-      '';
-    };
-  };
+  home.file.".local/share/dbus-1/services/org.freedesktop.secrets.service".text =
+    ''
+      [D-BUS Service]
+      Name=org.freedesktop.secrets
+      Exec=${pkgs.pass-secret-service}/bin/pass_secret_service
+      SystemdService=dbus-org.freedesktop.secrets.service
+    '';
 
   # --- Service systemd ---
   # IMPORTANT : Le nom doit être "dbus-org.freedesktop.secrets" pour correspondre
