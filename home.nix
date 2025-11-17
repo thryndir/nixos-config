@@ -6,6 +6,7 @@
   # [
     ./home-modules/gui/hyprland.nix
     ./home-modules/gui/waybar.nix
+    ./home-moules/gui/noctalia.nix
     ./home-modules/secrets.nix
   ];
   home.packages = with pkgs;
@@ -53,11 +54,11 @@
       }
     ];
 
-    sessionVariables =
-    {
-      EDITOR = "hx";
-      VISUAL = "hx";
-    };
+    # sessionVariables =
+    # {
+    #   EDITOR = "hx";
+    #   VISUAL = "hx";
+    # };
   };
 
   home.username = "lgalloux";

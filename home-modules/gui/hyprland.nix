@@ -7,7 +7,7 @@
     wofi
     brightnessctl
   ];
-
+  services.network-manager-applet.enable = true;
   # Configuration du programme Hyprland via Home Manager
   wayland.windowManager.hyprland =
   {
@@ -19,7 +19,6 @@
       monitor=,preferred,auto,1
       
       # Exécuter au démarrage
-      exec-once = waybar
       exec-once = systemctl --user import-environment && nm-applet --indicator
       
       # Raccourcis clavier

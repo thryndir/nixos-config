@@ -12,13 +12,13 @@
     systemd-boot.configurationLimit = 8;
   };
 
-  programs.hyprland =
+  programs =
   {
-    enable = true;
-    xwayland.enable = true;
+    hyprland.enable = true;
+    hyprland.xwayland.enable = true;
+    zsh.enable = true;
+    niri.enable = true;
   };
-
-  programs.zsh.enable = true;
 
   users.users.lgalloux =
   {
@@ -53,9 +53,10 @@
       pulse.enable = true;
       jack.enable = true;
     };
+    power-profiles-daemon.enable = true;
+    upower.enable = true;
   };
 
-  i18n.defaultLocale = "fr_FR.UTF-8";
   console.keyMap = "us";
   fonts.packages = with pkgs; [ noto-fonts noto-fonts-emoji ];
 
@@ -65,7 +66,11 @@
     hostName = "nixos-hypr";
   };
 
-  hardware.graphics.enable = true;
+  hardware =
+  {
+    graphics.enable = true;
+    bluetooth.enable = true;
+  };
 
   time.timeZone = "Europe/Paris";
 
