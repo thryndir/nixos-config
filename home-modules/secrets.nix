@@ -2,15 +2,18 @@
 
 {
   # --- Paquets nécessaires ---
-  home.packages = with pkgs; [
+  home.packages = with pkgs;
+  [
     gnupg pass pass-secret-service gcr
   ];
 
   # --- Configuration de GPG Agent ---
-  services.gpg-agent = {
+  services.gpg-agent =
+  {
     enable = true;
     pinentry.package = pkgs.pinentry-gnome3;
-    extraConfig = ''
+    extraConfig =
+    ''
       allow-loopback-pinentry
       allow-preset-passphrase
     '';
@@ -34,24 +37,29 @@
   # --- Service systemd ---
   # IMPORTANT : Le nom doit être "dbus-org.freedesktop.secrets" pour correspondre
   # au fichier D-Bus ci-dessus
-  systemd.user.services."dbus-org.freedesktop.secrets" = {
-    Unit = {
+  systemd.user.services."dbus-org.freedesktop.secrets" =
+  {
+    Unit =
+    {
       Description = "Expose the libsecret dbus api with pass as backend";
     };
 
-    Service = {
+    Service =
+    {
       Type = "dbus";
       BusName = "org.freedesktop.secrets";
       ExecStart = "${pkgs.pass-secret-service}/bin/pass_secret_service";
       
       # Variables d'environnement pour l'interface graphique
-      Environment = [
+      Environment =
+      [
         "DISPLAY=:0"
         "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
       ];
     };
 
-    Install = {
+    Install =
+    {
       WantedBy = [ "default.target" ];
     };
   };

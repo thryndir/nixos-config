@@ -52,7 +52,6 @@
           };
         }
         ./configuration.nix
-        ./home.nix
       ];
     };
     homeConfigurations.lgalloux = home-manager.lib.homeManagerConfiguration
