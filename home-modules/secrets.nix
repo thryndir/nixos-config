@@ -4,10 +4,7 @@
 {
   # --- Paquets nécessaires ---
   home.packages = with pkgs; [
-    gnupg
-    pass
-    pass-secret-service
-    gcr
+    gnupg pass pass-secret-service gcr
   ];
 
   # --- Configuration de GPG Agent ---
@@ -16,8 +13,16 @@
     pinentry.package = pkgs.pinentry-gnome3;
     extraConfig = ''
       allow-loopback-pinentry
+      allow-preset-passphrase
     '';
   };
+
+  home.file.".pam-gnupg".text =
+  ''
+    5127EE13833060CF4D57B12BC27A911BF7D81D4B
+  '';
+    
+  services.ssh-agent.enable = true;
 
   # --- Fichier de service D-Bus ---
   # Ce fichier dit à D-Bus : "Si quelqu'un demande org.freedesktop.secrets,

@@ -1,9 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports =
   [
     ./hardware-configuration.nix
-    <home-manager/nixos>
   ];
 
   boot.loader =
@@ -13,15 +12,13 @@
     systemd-boot.configurationLimit = 8;
   };
 
-  home-manager.users.lgalloux = import ./home.nix;
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-
   programs.hyprland =
   {
     enable = true;
     xwayland.enable = true;
   };
+
+  programs.zsh.enable = true;
 
   users.users.lgalloux =
   {
@@ -31,8 +28,16 @@
       "video" "input" "seat" 
     ];
     isNormalUser = true;
-    initialPassword = "qwerty";
+    shell = pkgs.zsh;
   };
+
+  nix.settings.experimental-features=["nix-command" "flakes"];
+  security.sudo.extraConfig = ''Defaults !sudoedit_checkdir'';
+  security.pam.services.sddm.text = lib.mkAfter
+  ''
+    auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so store-only debug
+    session optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so debug
+  '';
 
   services =
   {

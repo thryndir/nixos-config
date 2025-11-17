@@ -23,7 +23,7 @@
       exec-once = systemctl --user import-environment && nm-applet --indicator
       
       # Raccourcis clavier
-      bind = SUPER, Return, exec, alacritty
+      bind = SUPER, Return, exec, kitty
       bind = SUPER, Q, killactive
       bind = SUPER, M, exit
       bind = SUPER, D, exec, wofi --show drun
