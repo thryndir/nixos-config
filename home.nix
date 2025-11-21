@@ -5,7 +5,7 @@
   # ++ lib.optional (config.networking.hostName == "nixos-hypr")
   # [
     ./home-modules/gui/hyprland.nix
-    ./home-modules/gui/hyprpanel.nix
+    ./home-modules/gui/noctalia.nix
     ./home-modules/secrets.nix
   ];
   home.packages = with pkgs;
