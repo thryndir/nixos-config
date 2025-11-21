@@ -5,13 +5,12 @@
   # ++ lib.optional (config.networking.hostName == "nixos-hypr")
   # [
     ./home-modules/gui/hyprland.nix
-    ./home-modules/gui/waybar.nix
-    ./home-moules/gui/noctalia.nix
+    ./home-modules/gui/hyprpanel.nix
     ./home-modules/secrets.nix
   ];
   home.packages = with pkgs;
   [
-    kitty nixd
+    kitty nixd direnv
   ];
 
   programs.helix =

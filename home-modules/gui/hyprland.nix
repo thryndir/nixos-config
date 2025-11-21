@@ -2,12 +2,7 @@
 
 {
   # Les paquets restent les mêmes
-  home.packages = with pkgs;
-  [
-    wofi
-    brightnessctl
-  ];
-  services.network-manager-applet.enable = true;
+  # services.network-manager-applet.enable = true;
   # Configuration du programme Hyprland via Home Manager
   wayland.windowManager.hyprland =
   {
@@ -19,13 +14,12 @@
       monitor=,preferred,auto,1
       
       # Exécuter au démarrage
-      exec-once = systemctl --user import-environment && nm-applet --indicator
       
       # Raccourcis clavier
       bind = SUPER, Return, exec, kitty
       bind = SUPER, Q, killactive
       bind = SUPER, M, exit
-      bind = SUPER, D, exec, wofi --show drun
+      bind = SUPER, D, exec, noctalia-shell ipc call launcher toggle
 
       input {
         touchpad {

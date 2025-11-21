@@ -7,7 +7,8 @@
     gnupg pass pass-secret-service gcr
   ];
 
-  # --- Configuration de GPG Agent ---
+  services.network-manager-applet.enable = true;
+
   services.gpg-agent =
   {
     enable = true;
