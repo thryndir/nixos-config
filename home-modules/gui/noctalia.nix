@@ -183,11 +183,11 @@
       wallpaper = {
         enabled = true;
         overviewEnabled = false;
-        directory = "/home/lgalloux/wallpaper";
+        directory = "/home/lgalloux/.wallpaper";
         enableMultiMonitorDirectories = false;
         recursiveSearch = false;
         setWallpaperOnAllMonitors = true;
-        defaultWallpaper = "/home/lgalloux/wallpaper/ref-image_upscaled.jpeg";
+        defaultWallpaper = "/home/lgalloux/.wallpaper/tokyonight_original.png";
         fillMode = "crop";
         fillColor = "#000000";
         randomEnabled = false;
@@ -329,7 +329,7 @@
       };
 
       colorSchemes = {
-        useWallpaperColors = true;
+        useWallpaperColors = false;
         predefinedScheme = "Tokyo Night";
         darkMode = true;
         schedulingMode = "off";
@@ -340,22 +340,22 @@
       };
 
       templates = {
-        gtk = false;
-        qt = false;
-        kcolorscheme = false;
+        gtk = true;
+        qt = true;
+        kcolorscheme = true;
         alacritty = false;
         kitty = true;
         ghostty = false;
         foot = false;
         wezterm = false;
         fuzzel = false;
-        discord = false;
+        discord = true;
         pywalfox = false;
         vicinae = false;
         walker = false;
         code = false;
         spicetify = false;
-        enableUserTemplates = false;
+        enableUserTemplates = true;
       };
 
       nightLight = {

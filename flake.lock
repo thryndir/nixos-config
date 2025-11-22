@@ -73,33 +73,29 @@
         "type": "github"
       }
     },
-    "quickshell": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1763629934,
-        "narHash": "sha256-jWz10RbNAyylJbH4cUTLS/CsDjkd8gxfT8OsIgQIgEg=",
-        "owner": "outfoxxed",
-        "repo": "quickshell",
-        "rev": "ed036d514b0fdbce03158a0b331305be166f4555",
-        "type": "github"
-      },
-      "original": {
-        "owner": "outfoxxed",
-        "repo": "quickshell",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "noctalia": "noctalia",
-        "quickshell": "quickshell"
+        "tokyonight-sddm-src": "tokyonight-sddm-src"
+      }
+    },
+    "tokyonight-sddm-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686823900,
+        "narHash": "sha256-JRVVzyefqR2L3UrEK2iWyhUKfPMUNUnfRZmwdz05wL0=",
+        "owner": "rototrash",
+        "repo": "tokyo-night-sddm",
+        "rev": "320c8e74ade1e94f640708eee0b9a75a395697c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rototrash",
+        "repo": "tokyo-night-sddm",
+        "type": "github"
       }
     }
   },

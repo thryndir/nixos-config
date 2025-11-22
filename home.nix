@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ...}:
+{ config, pkgs, lib, pkgs-unstable, ...}:
 {
   imports =
   [
@@ -6,17 +6,29 @@
   # [
     ./home-modules/gui/hyprland.nix
     ./home-modules/gui/noctalia.nix
-    ./home-modules/secrets.nix
   ];
-  home.packages = with pkgs;
+  home.packages =
   [
-    kitty nixd direnv
+    pkgs.kitty pkgs.nixd pkgs.direnv
+    pkgs-unstable.bluetui
   ];
 
   programs.helix =
   {
     enable = true;
     defaultEditor = true;
+  };
+
+  programs.zoxide =
+  {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.yazi =
+  {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.zsh =

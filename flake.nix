@@ -8,22 +8,45 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    quickshell =
-    {
-      url = "github:outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     noctalia =
     {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.quickshell.follows = "quickshell";
+    };
+    tokyonight-sddm-src =
+    {
+      url = "github:rototrash/tokyo-night-sddm";
+      flake = false;
     };
   };
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, tokyonight-sddm-src, ... }@inputs:
   let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs
+    {
+      inherit system;
+      config.allowUnfree = true;
+      overlays =
+      [
+        (final: prev:
+        {
+          sddm-tokyonight = prev.stdenv.mkDerivation
+          {
+            pname = "sddm-tokyonight";
+            version = "1.0";
+            src = tokyonight-sddm-src;
+            dontBuild = true;
+            themeConfig = import ./sddm-theme.nix { pkgs = prev; };
+            installPhase =
+            ''
+              mkdir -p $out/share/sddm/themes/tokyonight-sddm
+              cp -r $src/* $out/share/sddm/themes/tokyonight-sddm
+              cp $themeConfig $out/share/sddm/themes/tokyonight-sddm/theme.conf
+            '';
+          };
+        })
+      ];
+    };
     pkgs-unstable = import nixpkgs-unstable
     {
       inherit system;
@@ -33,7 +56,7 @@
   {
     nixosConfigurations.nixos-hypr = nixpkgs.lib.nixosSystem
     {
-      inherit system;
+      inherit pkgs;
 
       specialArgs =
       {

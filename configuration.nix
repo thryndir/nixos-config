@@ -33,18 +33,16 @@
 
   nix.settings.experimental-features=["nix-command" "flakes"];
   security.sudo.extraConfig = ''Defaults !sudoedit_checkdir'';
-  security.pam.services.sddm.text = lib.mkAfter
-  ''
-    auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so store-only debug
-    session optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so debug
-  '';
 
   services =
   {
     xserver.xkb.layout = "us";
-    displayManager.sddm.wayland.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.theme = "where_is_my_sddm_theme";
+    displayManager.sddm =
+    {
+      wayland.enable = true;
+      enable = true;
+      theme = "tokyonight-sddm";
+    };
     pipewire =
     {
       enable = true;
@@ -66,6 +64,8 @@
     hostName = "nixos-hypr";
   };
 
+  services.resolved.enable = true;
+
   hardware =
   {
     graphics.enable = true;
@@ -76,7 +76,8 @@
 
   environment.systemPackages = with pkgs;
   [
-    vim firefox git
+    vim firefox git libsForQt5.qtgraphicaleffects
+    sddm-tokyonight
   ];
 
   system.stateVersion = "24.11";
