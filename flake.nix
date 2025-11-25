@@ -41,6 +41,7 @@
             ''
               mkdir -p $out/share/sddm/themes/tokyonight-sddm
               cp -r $src/* $out/share/sddm/themes/tokyonight-sddm
+              chmod -R u+w $out/share/sddm/themes/tokyonight-sddm
               cp $themeConfig $out/share/sddm/themes/tokyonight-sddm/theme.conf
             '';
           };
@@ -67,7 +68,13 @@
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
-          home-manager.users.lgalloux = import ./home.nix;
+          home-manager.users.lgalloux =
+          {
+            imports =
+            [
+              ./home.nix
+            ];
+          };
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs =
           {

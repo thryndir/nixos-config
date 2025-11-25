@@ -6,18 +6,14 @@
   # [
     ./home-modules/gui/hyprland.nix
     ./home-modules/gui/noctalia.nix
+    ./home-modules/kitty.nix
+    ./home-modules/helix.nix
   ];
   home.packages =
   [
-    pkgs.kitty pkgs.nixd pkgs.direnv
+    pkgs.nixd pkgs.direnv pkgs.discord
     pkgs-unstable.bluetui
   ];
-
-  programs.helix =
-  {
-    enable = true;
-    defaultEditor = true;
-  };
 
   programs.zoxide =
   {
@@ -64,12 +60,6 @@
         };
       }
     ];
-
-    # sessionVariables =
-    # {
-    #   EDITOR = "hx";
-    #   VISUAL = "hx";
-    # };
   };
 
   home.username = "lgalloux";

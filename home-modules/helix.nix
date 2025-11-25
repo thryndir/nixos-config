@@ -26,7 +26,7 @@
         auto-save =
         {
           focus-lost = true;
-          after-delay.enable = true;
+          after-delay.enable = false;
         };
 
         cursor-shape = {

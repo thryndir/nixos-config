@@ -16,18 +16,14 @@ pkgs.writeText "theme.conf"
   ScreenHeight="1080"
   ## Adjust to your resolution to help SDDM speed up on calculations
 
-
-
   ## [Blur Settings]
 
-  FullBlur="false"
+  FullBlur="true"
   PartialBlur="true"
   ## Enable or disable the blur effect; if HaveFormBackground is set to true then PartialBlur will trigger the BackgroundColor of the form element to be partially transparent and blend with the blur.
 
-  BlurRadius="40"
+  BlurRadius="18"
   ## Set the strength of the blur effect. Anything above 100 is pretty strong and might slow down the rendering time. 0 is like setting false for any blur.
-
-
 
   ## [Design Customizations]
 
@@ -37,7 +33,7 @@ pkgs.writeText "theme.conf"
   FormPosition="center"
   ## Position of the form which takes roughly 1/3 of screen estate. Can be left, center or right.
 
-  BackgroundImageHAlignment="right"
+  BackgroundImageHAlignment="center"
   ## Horizontal position of the background picture relative to its visible area. Applies when ScaleImageCropped is set to false or when HaveFormBackground is set to true and FormPosition is either left or right. Can be left, center or right; defaults to center if none is passed.
 
   BackgroundImageVAlignment="center"
@@ -74,8 +70,6 @@ pkgs.writeText "theme.conf"
   FontSize=""
   ## Only set a fixed value if fonts are way too small for your resolution. Preferrably kept empty.
 
-
-
   ## [Interface Behavior]
 
   ForceRightToLeft="false"
@@ -102,8 +96,6 @@ pkgs.writeText "theme.conf"
   AllowBadUsernames="false"
   ## Do not change this! Uppercase letters are generally not allowed in usernames. This option is only for systems that differ from this standard! Also shows username as is instead of capitalized.
 
-
-
   ## [Locale Settings]
 
   Locale=""
@@ -114,8 +106,6 @@ pkgs.writeText "theme.conf"
 
   DateFormat="dddd  MMM d"
   ## Defaults to Locale.LongFormat - Accepts "short" or a custom string like "dddd, d 'of' MMMM". See http://doc.qt.io/qt-5/qml-qtqml-date.html
-
-
 
   ## [Translations]
 

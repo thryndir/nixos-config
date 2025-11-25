@@ -64,7 +64,7 @@
       "ctrl+shift+t" = "new_tab";
       "ctrl+shift+right" = "next_tab";
       "ctrl+shift+left" = "previous_tab";
-      "ctrl+shift+enter" = "launch --cwd=current"; # Nouveau terminal standard
+      "ctrl+shift+enter" = "launch --type=tab --cwd=current";
       "ctrl+shift+q" = "close_window";
     
       # -- Clipboard --
@@ -76,6 +76,6 @@
     };
   
     # Gestion du thème via Nix (plus propre que include)
-    theme = "Tokyo Night"; # Home Manager gère ça nativement !
+    themeFile = "tokyo_night_night"; # Home Manager gère ça nativement !
   };
 }
