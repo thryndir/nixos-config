@@ -2,11 +2,11 @@
   programs.helix =
   {
     enable = true;
+    defaultEditor = true;
   
     settings =
     {
       theme = "tokyonight";
-
       editor =
       {
         rulers = [ 80 120 ];

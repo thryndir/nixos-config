@@ -5,10 +5,6 @@
     inputs.noctalia.homeModules.default
   ];
 
-  home.packages = [
-    pkgs.matugen
-  ];
-
   programs.noctalia-shell = {
     enable = true;
     systemd.enable = true;
@@ -336,26 +332,26 @@
         manualSunrise = "06:30";
         manualSunset = "18:30";
         matugenSchemeType = "scheme-fruit-salad";
-        generateTemplatesForPredefined = true;
+        generateTemplatesForPredefined = false;
       };
 
       templates = {
-        gtk = true;
-        qt = true;
-        kcolorscheme = true;
+        gtk = false;
+        qt = false;
+        kcolorscheme = false;
         alacritty = false;
-        kitty = true;
+        kitty = false;
         ghostty = false;
         foot = false;
         wezterm = false;
         fuzzel = false;
-        discord = true;
+        discord = false;
         pywalfox = false;
         vicinae = false;
         walker = false;
         code = false;
         spicetify = false;
-        enableUserTemplates = true;
+        enableUserTemplates = false;
       };
 
       nightLight = {

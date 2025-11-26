@@ -3,9 +3,23 @@
   {
     nixpkgs.url = "github:NixOs/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOs/nixpkgs/nixos-unstable";
+    zen-browser =
+    {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs =
+      {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
     home-manager =
     {
       url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix =
+    {
+      url = "github:nix-community/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia =
@@ -73,6 +87,8 @@
             imports =
             [
               ./home.nix
+              inputs.stylix.homeModules.stylix
+              inputs.zen-browser.homeModules.twilight
             ];
           };
           home-manager.useUserPackages = true;
@@ -81,13 +97,19 @@
             inherit inputs pkgs-unstable;
           };
         }
+        inputs.stylix.nixosModules.stylix
         ./configuration.nix
       ];
     };
     homeConfigurations.lgalloux = home-manager.lib.homeManagerConfiguration
     {
-      inherit pkgs;
-      modules = [ ./home.nix ];
+      inherit pkgs inputs pkgs-unstable;
+      modules =
+      [
+        ./home.nix
+        inputs.stylix.homeModules.stylix
+        inputs.zen-browser.homeModules.beta
+      ];
     };
   };
 }

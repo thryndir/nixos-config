@@ -8,11 +8,13 @@
     ./home-modules/gui/noctalia.nix
     ./home-modules/kitty.nix
     ./home-modules/helix.nix
+    ./home-modules/zen.nix
+    ./home-modules/stylix.nix
   ];
   home.packages =
   [
     pkgs.nixd pkgs.direnv pkgs.discord
-    pkgs-unstable.bluetui
+    pkgs-unstable.bluetui pkgs.google-chrome
   ];
 
   programs.zoxide =

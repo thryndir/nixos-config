@@ -1,0 +1,19 @@
+scheme: "Tokyo Night High Vis"
+author: "Folke (modified for readability)"
+base00: "1a1b26" # Background
+base01: "24283b" # Lighter Background
+base02: "414868" # Selection Background
+base03: "787c99" # Comments (Gris lavande visible)
+base04: "a9b1d6" # Dark Foreground
+base05: "c0caf5" # Default Foreground
+base06: "d5d6db" # Light Foreground
+base07: "ffffff" # Light Background
+base08: "f7768e" # Red
+base09: "ff9e64" # Orange
+base0A: "e0af68" # Yellow (CORRIGÉ: C'était "base10" avant)
+base0B: "9ece6a" # Green
+base0C: "7dcfff" # Cyan
+base0D: "7aa2f7" # Blue
+base0E: "bb9af7" # Purple
+base0F: "db4b4b" # Brown
+
