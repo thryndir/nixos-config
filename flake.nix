@@ -3,6 +3,12 @@
   {
     nixpkgs.url = "github:NixOs/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOs/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
+    zsh-nix-shell =
+    {
+      url = "github:chisui/zsh-nix-shell/master";
+      flake = false;
+    };
     zen-browser =
     {
       url = "github:0xc000022070/zen-browser-flake";
@@ -36,31 +42,28 @@
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, tokyonight-sddm-src, ... }@inputs:
   let
     system = "x86_64-linux";
+    myOverlay = final: prev:
+    {
+      sddm-tokyonight = prev.stdenv.mkDerivation
+      {
+        pname = "sddm-tokyonight";
+        version = "1.0";
+        src = tokyonight-sddm-src;
+        dontBuild = true;
+        themeConfig = import ./sddm-theme.nix { pkgs = prev; };
+        installPhase =
+        ''
+          mkdir -p $out/share/sddm/themes/tokyonight-sddm
+          cp -r $src/* $out/share/sddm/themes/tokyonight-sddm
+          chmod -R u+w $out/share/sddm/themes/tokyonight-sddm
+          cp $themeConfig $out/share/sddm/themes/tokyonight-sddm/theme.conf
+        '';
+      };
+    };
     pkgs = import nixpkgs
     {
       inherit system;
       config.allowUnfree = true;
-      overlays =
-      [
-        (final: prev:
-        {
-          sddm-tokyonight = prev.stdenv.mkDerivation
-          {
-            pname = "sddm-tokyonight";
-            version = "1.0";
-            src = tokyonight-sddm-src;
-            dontBuild = true;
-            themeConfig = import ./sddm-theme.nix { pkgs = prev; };
-            installPhase =
-            ''
-              mkdir -p $out/share/sddm/themes/tokyonight-sddm
-              cp -r $src/* $out/share/sddm/themes/tokyonight-sddm
-              chmod -R u+w $out/share/sddm/themes/tokyonight-sddm
-              cp $themeConfig $out/share/sddm/themes/tokyonight-sddm/theme.conf
-            '';
-          };
-        })
-      ];
     };
     pkgs-unstable = import nixpkgs-unstable
     {
@@ -71,7 +74,7 @@
   {
     nixosConfigurations.nixos-hypr = nixpkgs.lib.nixosSystem
     {
-      inherit pkgs;
+      inherit system;
 
       specialArgs =
       {
@@ -79,37 +82,38 @@
       };
       modules =
       [
-        home-manager.nixosModules.home-manager
+        {
+          nixpkgs.overlays =
+          [
+            inputs.nur.overlays.default
+            myOverlay
+          ];
+          nixpkgs.config.allowUnfree = true;
+        }
         {
           home-manager.useGlobalPkgs = true;
-          home-manager.users.lgalloux =
-          {
-            imports =
-            [
-              ./home.nix
-              inputs.stylix.homeModules.stylix
-              inputs.zen-browser.homeModules.twilight
-            ];
-          };
+          home-manager.users.lgalloux = import ./home.nix; 
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs =
           {
             inherit inputs pkgs-unstable;
           };
         }
-        inputs.stylix.nixosModules.stylix
+        home-manager.nixosModules.home-manager
         ./configuration.nix
       ];
     };
     homeConfigurations.lgalloux = home-manager.lib.homeManagerConfiguration
     {
-      inherit pkgs inputs pkgs-unstable;
       modules =
       [
         ./home.nix
-        inputs.stylix.homeModules.stylix
-        inputs.zen-browser.homeModules.beta
       ];
+      extraSpecialArgs =
+      {
+        inherit pkgs inputs
+        pkgs-unstable;
+      };
     };
   };
 }

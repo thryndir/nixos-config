@@ -1,21 +1,54 @@
-{ config, pkgs, lib, pkgs-unstable, ...}:
+{  pkgs, pkgs-unstable, inputs, osConfig, lib, ...}:
 {
   imports =
   [
-  # ++ lib.optional (config.networking.hostName == "nixos-hypr")
-  # [
-    ./home-modules/gui/hyprland.nix
-    ./home-modules/gui/noctalia.nix
     ./home-modules/kitty.nix
     ./home-modules/helix.nix
     ./home-modules/zen.nix
     ./home-modules/stylix.nix
-  ];
+  ]
+  ++ (lib.optionals (osConfig.networking.hostName == "nixos-hypr") 
+  [
+    ./home-modules/gui/hyprland.nix
+    ./home-modules/gui/noctalia.nix
+  ]);
+    
   home.packages =
   [
     pkgs.nixd pkgs.direnv pkgs.discord
-    pkgs-unstable.bluetui pkgs.google-chrome
+    pkgs-unstable.bluetui pkgs.delta
+    pkgs.brave
   ];
+
+  programs.git =
+  {
+    enable = true;
+    userName = "Louis Galloux";
+    userEmail = "neon.galgamergal@gmail.com";
+    delta =
+    {
+      enable = true;
+      options =
+      {
+        navigate = true;
+        line-numbers = true;
+        side-by-side = true;
+      };
+    };
+    extraConfig =
+    {
+      init.defaultBranch = "main";
+      pull.rebase = true;
+      push.autoSetupRemote = true;
+      commit.gpgSigh = true;
+    };
+  };
+
+  programs.ssh =
+  {
+    enable = true;
+    addKeysToAgent = "yes"; 
+  };
 
   programs.zoxide =
   {
@@ -53,13 +86,7 @@
       {
         name = "zsh-nix-shell";
         file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub
-        {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.8.0";
-          sha256 = "sha256-Z6EYQdasvpl1P78poj9efnnLj7QQg13Me8x1Ryyw+dM=";
-        };
+        src = inputs.zsh-nix-shell;
       }
     ];
   };

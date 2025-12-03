@@ -1,9 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 {
+  imports = [ inputs.stylix.homeModules.stylix ];
   stylix =
   {
     enable = true;
-    base16Scheme = ./tokyo-night-official.yaml;
+    base16Scheme = ./tokyo-night-custom.yaml;
     image = config.lib.stylix.pixel "base00";
     polarity = "dark";
 

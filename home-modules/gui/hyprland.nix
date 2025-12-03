@@ -30,6 +30,14 @@
         };
       };
 
+      cursor =
+      {
+        no_warps = true;
+        persistent_warps = true;
+        hide_on_key_press = true;
+        inactive_timeout = 3;
+      };
+
       input =
       {
         kb_layout = "us";

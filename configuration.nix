@@ -17,7 +17,6 @@
     hyprland.enable = true;
     hyprland.xwayland.enable = true;
     zsh.enable = true;
-    niri.enable = true;
   };
 
   users.users.lgalloux =
@@ -76,7 +75,7 @@
 
   environment.systemPackages = with pkgs;
   [
-    vim firefox git libsForQt5.qtgraphicaleffects
+    vim git libsForQt5.qtgraphicaleffects
     sddm-tokyonight
   ];
 
