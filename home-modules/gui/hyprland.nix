@@ -69,6 +69,8 @@
         
         "$mainMod, SPACE, exec, noctalia-shell ipc call launcher toggle"
         "$mainMod, ESCAPE, exec, noctalia-shell ipc call lockScreen lock"
+        "$mainMod, T, exec, noctalia-shell ipc call bar toggle"
+        "$mainMod SHIFT, ESCAPE, exec, noctalia-shell ipc call sessionMenu toggle"
 
         "$mainMod, H, movefocus, l"
         "$mainMod, L, movefocus, r"

@@ -1,8 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 {
   imports =
   [
     ./hardware-configuration.nix
+    ./sddm-theme.nix
+    ./stylix.nix
+    inputs.stylix.nixosModules.stylix
   ];
 
   boot.loader =
@@ -36,12 +39,6 @@
   services =
   {
     xserver.xkb.layout = "us";
-    displayManager.sddm =
-    {
-      wayland.enable = true;
-      enable = true;
-      theme = "tokyonight-sddm";
-    };
     pipewire =
     {
       enable = true;
@@ -55,7 +52,7 @@
   };
 
   console.keyMap = "us";
-  fonts.packages = with pkgs; [ noto-fonts noto-fonts-emoji ];
+  fonts.packages = with pkgs; [ noto-fonts noto-fonts-color-emoji ];
 
   networking =
   {
@@ -75,8 +72,7 @@
 
   environment.systemPackages = with pkgs;
   [
-    vim git libsForQt5.qtgraphicaleffects
-    sddm-tokyonight
+    vim git
   ];
 
   system.stateVersion = "24.11";

@@ -227,6 +227,5 @@ in
     };
   };
 };
-  # home.file.".zen/lgalloux/zen-keyboard-shortcuts.json".text = zenShortcuts.jsonContent;
 }
 

@@ -5,38 +5,34 @@
     ./home-modules/kitty.nix
     ./home-modules/helix.nix
     ./home-modules/zen.nix
-    ./home-modules/stylix.nix
+    ./home-modules/music.nix
+    ./home-modules/syncthing.nix
   ]
   ++ (lib.optionals (osConfig.networking.hostName == "nixos-hypr") 
   [
     ./home-modules/gui/hyprland.nix
     ./home-modules/gui/noctalia.nix
+  ])
+  ++ (lib.optionals (osConfig.networking.hostName != "nixos-hypr")
+  [
+    ./home-modules/stylix.nix
+     inputs.stylix.homeModules.stylix
   ]);
     
   home.packages =
   [
     pkgs.nixd pkgs.direnv pkgs.discord
     pkgs-unstable.bluetui pkgs.delta
-    pkgs.brave
+    pkgs.brave pkgs.obsidian
   ];
 
   programs.git =
   {
     enable = true;
-    userName = "Louis Galloux";
-    userEmail = "neon.galgamergal@gmail.com";
-    delta =
+    settings =
     {
-      enable = true;
-      options =
-      {
-        navigate = true;
-        line-numbers = true;
-        side-by-side = true;
-      };
-    };
-    extraConfig =
-    {
+      user.name = "Louis Galloux";
+      user.email = "neon.galgamergal@gmail.com";
       init.defaultBranch = "main";
       pull.rebase = true;
       push.autoSetupRemote = true;
@@ -44,10 +40,30 @@
     };
   };
 
+  stylix =
+  {
+    targets.zen-browser.enable = false;
+    targets.helix.enable = false;
+    targets.hyprland.enable = false;
+  };
+
+  programs.delta =
+  {
+    enable = true;
+    enableGitIntegration = true;
+    options =
+    {
+      navigate = true;
+      line-numbers = true;
+      side-by-side = true;
+    };
+  };
+
   programs.ssh =
   {
     enable = true;
-    addKeysToAgent = "yes"; 
+    enableDefaultConfig = false;
+    matchBlocks.lgalloux.addKeysToAgent = "yes";
   };
 
   programs.zoxide =

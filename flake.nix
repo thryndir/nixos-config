@@ -1,7 +1,7 @@
 {
   inputs =
   {
-    nixpkgs.url = "github:NixOs/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOs/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOs/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     zsh-nix-shell =
@@ -20,12 +20,12 @@
     };
     home-manager =
     {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix =
     {
-      url = "github:nix-community/stylix/release-25.05";
+      url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia =
@@ -39,27 +39,9 @@
       flake = false;
     };
   };
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, tokyonight-sddm-src, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
   let
     system = "x86_64-linux";
-    myOverlay = final: prev:
-    {
-      sddm-tokyonight = prev.stdenv.mkDerivation
-      {
-        pname = "sddm-tokyonight";
-        version = "1.0";
-        src = tokyonight-sddm-src;
-        dontBuild = true;
-        themeConfig = import ./sddm-theme.nix { pkgs = prev; };
-        installPhase =
-        ''
-          mkdir -p $out/share/sddm/themes/tokyonight-sddm
-          cp -r $src/* $out/share/sddm/themes/tokyonight-sddm
-          chmod -R u+w $out/share/sddm/themes/tokyonight-sddm
-          cp $themeConfig $out/share/sddm/themes/tokyonight-sddm/theme.conf
-        '';
-      };
-    };
     pkgs = import nixpkgs
     {
       inherit system;
@@ -86,7 +68,6 @@
           nixpkgs.overlays =
           [
             inputs.nur.overlays.default
-            myOverlay
           ];
           nixpkgs.config.allowUnfree = true;
         }
@@ -105,15 +86,17 @@
     };
     homeConfigurations.lgalloux = home-manager.lib.homeManagerConfiguration
     {
-      modules =
-      [
-        ./home.nix
-      ];
+       inherit pkgs;
       extraSpecialArgs =
       {
-        inherit pkgs inputs
+        inherit inputs
         pkgs-unstable;
+        osConfig =
+        {
+          networking.hostName = "standalone-pc";
+        };
       };
+      modules = [ ./home.nix ];
     };
   };
 }
