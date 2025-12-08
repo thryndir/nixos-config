@@ -97,7 +97,6 @@ in
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons;
       [
         ublock-origin
-        stylus
         proton-pass
         vimium-c
       ];

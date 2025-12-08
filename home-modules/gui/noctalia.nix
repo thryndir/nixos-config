@@ -1,4 +1,4 @@
-{ pkgs, inputs, pkgs-unstable, ... }:
+{ inputs, ... }:
 
 {
   imports = [
@@ -177,13 +177,13 @@
       };
 
       wallpaper = {
-        enabled = true;
+        enabled = false;
         overviewEnabled = false;
         directory = "/home/lgalloux/.wallpaper";
         enableMultiMonitorDirectories = false;
         recursiveSearch = false;
         setWallpaperOnAllMonitors = true;
-        defaultWallpaper = "/home/lgalloux/.wallpaper/tokyonight_original.png";
+        defaultWallpaper = "/home/lgalloux/.wallpaper/tokyonight.png";
         fillMode = "crop";
         fillColor = "#000000";
         randomEnabled = false;

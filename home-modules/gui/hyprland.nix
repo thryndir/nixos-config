@@ -1,5 +1,28 @@
-{ ... }:
+{ config, ... }:
 {
+
+  home.file.".wallpaper/tokyonight.png" =
+  {
+    source = ../../tokyonight.png;
+    target = ".wallpaper/tokyonight.png";
+  };
+
+  services.hyprpaper =
+  {
+    enable = true;
+    settings =
+    {
+      preload =
+      [
+        "${config.home.homeDirectory}/.wallpaper/tokyonight.png"
+      ];
+      wallpaper =
+      [
+        ",${config.home.homeDirectory}/.wallpaper/tokyonight.png"
+      ];
+    };
+  };
+
   wayland.windowManager.hyprland =
   {
     enable = true;

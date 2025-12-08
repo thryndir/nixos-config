@@ -1,4 +1,4 @@
-{  pkgs, pkgs-unstable, inputs, osConfig, lib, ...}:
+{  pkgs, config, pkgs-unstable, inputs, osConfig, lib, ...}:
 {
   imports =
   [
@@ -63,7 +63,14 @@
   {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks.lgalloux.addKeysToAgent = "yes";
+    matchBlocks = {
+      github =
+      {
+        host = "github.com";
+        identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519_github";
+        identitiesOnly = true;
+      };
+    };
   };
 
   programs.zoxide =

@@ -30,7 +30,7 @@ in
     settings = {
       mpd_host = "localhost";
       mpd_port = 6600;
-      mpd_music_dir = "${musicDir}/albums";
+      mpdMusicDir = "${musicDir}/albums";
       
       user_interface = "alternative";
       playlist_display_mode = "columns";
