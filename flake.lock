@@ -68,6 +68,22 @@
         "type": "github"
       }
     },
+    "blissify-rs-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1760037862,
+        "narHash": "sha256-C0f9JNILTbwA71VSLVS8mtWXoOAbBbMDcnNQwHaKKvg=",
+        "owner": "Polochon-street",
+        "repo": "blissify-rs",
+        "rev": "74d532d9e85d14dbb18ab6653edbdf05ef5fbbe7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Polochon-street",
+        "repo": "blissify-rs",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -296,6 +312,7 @@
     },
     "root": {
       "inputs": {
+        "blissify-rs-src": "blissify-rs-src",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

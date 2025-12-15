@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports =
   [
@@ -47,6 +47,22 @@
       pulse.enable = true;
       jack.enable = true;
     };
+    snapper.configs =
+    {
+      home =
+      {
+        SUBVOLUME = "/home";  # Chemin du subvolume BTRFS à snapshoter
+        ALLOW_USERS = [ "lgalloux" ];  # Lecture snapshots sans sudo
+        TIMELINE_CREATE = true;
+        TIMELINE_CLEANUP = true;  # Nettoyage auto
+        TIMELINE_LIMIT_HOURLY = "5";
+        TIMELINE_LIMIT_DAILY = "7";
+        TIMELINE_LIMIT_WEEKLY = "4";
+        TIMELINE_LIMIT_MONTHLY = "3";
+        CLEANUP_ALGORITHM = "timeshift";  # Stratégie de rétention
+      };
+    };
+
     power-profiles-daemon.enable = true;
     upower.enable = true;
   };

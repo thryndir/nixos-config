@@ -1,4 +1,4 @@
-{...}:
+{ pkgs,... }:
 {
   systemd.user.services.bluetooth-volume-limiter =
   {
@@ -9,28 +9,25 @@
     };
 
     Service = {
-      # On redémarre le script s'il plante
       Restart = "always";
       RestartSec = "5s";
     
       ExecStart = let
-        pkgs = import <nixpkgs> {};
         limit = "40";
       in "${pkgs.writeShellScript "bt-vol-limit" ''
-        export PATH=${pkgs.pulseaudio}/bin:${pkgs.gnugrep}/bin:${pkgs.gawk}/bin:$PATH
+        # Ajout de coreutils pour avoir head, tr, cut, etc.
+        export PATH=${pkgs.coreutils}/bin:${pkgs.pulseaudio}/bin:${pkgs.gnugrep}/bin:${pkgs.gawk}/bin:$PATH
       
-        # Fonction pour vérifier et limiter un sink spécifique
         check_limit() {
           local sink_id=$1
         
-          # Récupère le nom et le volume actuel (en %)
           # On utilise pactl car il est stable pour le scripting, même sous PipeWire
           local info=$(pactl list sinks | grep -A 15 "Sink #$sink_id")
           local name=$(echo "$info" | grep "Name:" | awk '{print $2}')
           local vol=$(echo "$info" | grep "Volume:" | head -n1 | awk -F/ '{print $2}' | tr -d ' %')
 
-          # Si c'est du bluetooth (bluez) et que le volume dépasse la limite
-          if [[ "$name" == *"bluez_output"* ]] && [ "$vol" -gt "${limit}" ]; then
+          # Si c'est du bluetooth (bluez), que le volume a bien été lu, et qu'il dépasse la limite
+          if [[ "$name" == *"bluez_output"* ]] && [ -n "$vol" ] && [ "$vol" -gt "${limit}" ]; then
             echo "Volume trop haut ($vol%) sur $name. Limitation à ${limit}%."
             pactl set-sink-volume "$sink_id" ${limit}%
           fi
@@ -56,3 +53,4 @@
     };
   };
 }
+

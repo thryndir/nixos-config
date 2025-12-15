@@ -2,17 +2,17 @@
 {
   imports =
   [
-    ./home-modules/kitty.nix
-    ./home-modules/helix.nix
-    ./home-modules/zen.nix
-    ./home-modules/music.nix
-    ./home-modules/syncthing.nix
-    ./home-modules/zathura.nix
+    ./kitty.nix
+    ./helix.nix
+    ./zen.nix
+    ./music.nix
+    ./syncthing.nix
+    ./ollama.nix
   ]
   ++ (lib.optionals (osConfig.networking.hostName == "nixos-hypr") 
   [
-    ./home-modules/gui/hyprland.nix
-    ./home-modules/gui/noctalia.nix
+    ./gui/hyprland.nix
+    ./gui/noctalia.nix
   ])
   ++ (lib.optionals (osConfig.networking.hostName != "nixos-hypr")
   [
@@ -24,7 +24,9 @@
   [
     pkgs.nixd pkgs.direnv pkgs.discord
     pkgs-unstable.bluetui pkgs.delta
-    pkgs.brave pkgs.obsidian pkgs.tdf
+    pkgs.brave pkgs.obsidian pkgs.man-pages
+    pkgs.man-pages-posix pkgs.linux-manual
+    pkgs.aichat
   ];
 
   stylix =
@@ -97,7 +99,7 @@
     shellAliases =
     {
       zathura = "zathura --fork";
-      mentor = "ollama run mentor";
+      auditor = "aichat --empty-session";
     };
     
     oh-my-zsh =
@@ -122,21 +124,27 @@
     ];
   };
 
-  services.ollama =
+  programs.zathura =
   {
     enable = true;
-    acceleration = false;
-    environmentVariables =
+    options =
     {
-      OLLAMA_MODELS = "${config.home.homeDirectory}/.cache/ollama/models";
+      adjust-open = "best-fit";
+      selection-clipboard = "clipboard";
+      recolor = true;
+      recolor-keephue = true;
+      recolor-reverse-video = true;
+    };
+    mappings =
+    {
+      "<C-d>" = "scroll half-down";
+      "<C-u>" = "scroll half-up";
+      "<C-f>" = "scroll full-down";
+      "<C-b>" = "scroll full-up";
     };
   };
 
-  home.file.".local/share/ollama/modelfiles/mentor".source =
-    ./mentor-modelfile;
-
   home.username = "lgalloux";
   home.homeDirectory = "/home/lgalloux";
-
   home.stateVersion = "24.11";
 }

@@ -1,58 +1,101 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 let
-  musicDir = "${config.home.homeDirectory}/obsidian+music/Music";
+  musicDir = "${config.home.homeDirectory}/Music";
+
+  blissify-rs = pkgs.rustPlatform.buildRustPackage
+  {
+    name = "blissify-unstable";
+    src = inputs.blissify-rs-src;
+    cargoHash = "sha256-ShStjDSeXCSLU1u2SkAS3HCeRDAOpvNH71Sm/787RM0=";
+    nativeBuildInputs = [ pkgs.pkg-config pkgs.llvmPackages.libclang ];
+    buildInputs = [ pkgs.ffmpeg pkgs.sqlite pkgs.alsa-lib ];
+    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+
+    BINDGEN_EXTRA_CLANG_ARGS = 
+      "-isystem ${pkgs.llvmPackages.libclang.lib}/lib/clang/${pkgs.llvmPackages.libclang.version}/include " +
+      "-isystem ${pkgs.glibc.dev}/include";
+
+    doCheck = false;
+  };
 in
 {
+  imports = [ ./volume-limit.nix ];
+  
   home.packages = [
-    pkgs.yt-dlp
-    pkgs.mpd-sima
     pkgs.picard
     pkgs.chromaprint
     pkgs.opusTools
+    pkgs.cava
+    blissify-rs
   ];
 
-  services.mpd = {
+  services.mpd =
+  {
     enable = true;
-    musicDirectory = "${musicDir}/albums";
-    network.startWhenNeeded = true;
-    
+    musicDirectory = "${musicDir}";
+    playlistDirectory = "${musicDir}/playlist";
+    network =
+    {
+      startWhenNeeded = true;
+    };
     extraConfig = ''
       audio_output {
         type "pipewire"
         name "PipeWire Output"
       }
+      audio_output {
+        type "fifo"
+        name "Visualizer"
+        path "/tmp/mpd.fifo"
+        format "44100:16:2"
+      }
     '';
   };
 
-  programs.ncmpcpp = {
+  services.mpd-mpris =
+  {
     enable = true;
-    
-    settings = {
-      mpd_host = "localhost";
-      mpd_port = 6600;
-      mpdMusicDir = "${musicDir}/albums";
-      
-      user_interface = "alternative";
-      playlist_display_mode = "columns";
-      browser_display_mode = "columns";
-      
-      autocenter_mode = "yes";
-      centered_cursor = "yes";
-      cyclic_scrolling = "yes";
-      
-      colors_enabled = "yes";
-      main_window_color = "white";
-      progressbar_color = "cyan";
+    mpd = { host = "localhost"; port = 6600; };
+  };
+
+  services.mpdscribble =
+  {
+    enable = true;
+    endpoints = {
+      "last.fm" = {
+        username = "thryndir";
+        passwordFile = "/home/lgalloux/.config/secrets/lastfm_pass";
+      };
     };
   };
+
+  programs.yt-dlp =
+  {
+    enable = true;
+    settings =
+    {
+      "format" = "bestaudio/best";
+      "extract-audio" = true;
+      "audio-format" = "opus";
+      "audio-quality" = "0";
+      "add-metadata" = true;
+      "embed-thumbnail" = true;
+      "no-write-thumbnail" = true;
+      "output" = "${musicDir}/Imports/%(title)s.%(ext)s";
+    };
+  };
+
+  programs.rmpc.enable = true;
+  xdg.configFile."rmpc/config.ron".source = ./rmpc.ron;
+
+  xdg.configFile."bliss-rs/config.json".source = ./bliss-rs.json;
 
   programs.beets =
   {
     enable = true;
-
     settings =
     {
-      directory = "${musicDir}/albums";
+      directory = "${musicDir}";
       library = "${config.home.homeDirectory}/.config/beets/musiclibrary.db";
       import =
       {
@@ -77,12 +120,19 @@ in
       lastgenre =
       {
         auto = true;
-        force = true;
         fallback = "";
       };
       smartplaylist =
       {
         playlist_dir = "${musicDir}/playlist";
+        relative_to = "${musicDir}";
+        auto = true;
+        playlists =
+        [
+          { name = "all.m3u"; query = ""; }
+          { name = "recent.m3u"; query = "added:-1w.."; }
+          { name = "singles.m3u"; query = "artist: 'Various Artists'"; }
+        ];
       };
     };
   };

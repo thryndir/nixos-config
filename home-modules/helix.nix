@@ -94,7 +94,7 @@
       {
         p = "paste_clipboard_before";
         y = "yank_main_selection_to_clipboard";
-      
+
         "C-x" = ":buffer-close";
       };
     };

@@ -38,6 +38,11 @@
       url = "github:rototrash/tokyo-night-sddm";
       flake = false;
     };
+    blissify-rs-src =
+    {
+      url = "github:Polochon-street/blissify-rs";
+      flake = false;
+    };
   };
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
   let
@@ -73,7 +78,7 @@
         }
         {
           home-manager.useGlobalPkgs = true;
-          home-manager.users.lgalloux = import ./home.nix; 
+          home-manager.users.lgalloux = import ./home-modules/home.nix; 
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs =
           {
@@ -96,7 +101,7 @@
           networking.hostName = "standalone-pc";
         };
       };
-      modules = [ ./home.nix ];
+      modules = [ ./home-modules/home.nix ];
     };
   };
 }
