@@ -115,13 +115,6 @@ in
             updateInterval = 24 * 60 * 60 * 1000; 
             definedAliases = [ "@br" ];
           };
-          "SearXNG" =
-          {
-            urls = [{ template = "https://searx.be/search?q={searchTerms}"; }];
-            icon = "https://searx.be/favicon.ico";
-            updateInterval = 24 * 60 * 60 * 1000;
-            definedAliases = [ "@sx" ];
-          };
           "Nix Packages" =
           {
             urls = [{ template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}"; }];

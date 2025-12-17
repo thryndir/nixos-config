@@ -88,7 +88,7 @@ in
   programs.rmpc.enable = true;
   xdg.configFile."rmpc/config.ron".source = ./rmpc.ron;
 
-  xdg.configFile."bliss-rs/config.json".source = ./bliss-rs.json;
+  xdg.configFile."bliss-rs/config.json".source = config.lib.file.mkOutOfStoreSymlink "/home/lgalloux/nixos-config/home-modules/bliss-rs.json";
 
   programs.beets =
   {

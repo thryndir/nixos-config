@@ -7,7 +7,6 @@
     ./zen.nix
     ./music.nix
     ./syncthing.nix
-    ./ollama.nix
   ]
   ++ (lib.optionals (osConfig.networking.hostName == "nixos-hypr") 
   [
@@ -22,11 +21,9 @@
     
   home.packages =
   [
-    pkgs.nixd pkgs.direnv pkgs.discord
-    pkgs-unstable.bluetui pkgs.delta
+    pkgs.nixd pkgs-unstable.bluetui pkgs.delta
     pkgs.brave pkgs.obsidian pkgs.man-pages
-    pkgs.man-pages-posix pkgs.linux-manual
-    pkgs.aichat
+    pkgs.man-pages-posix 
   ];
 
   stylix =
@@ -89,6 +86,13 @@
     enableZshIntegration = true;
   };
 
+  programs.direnv =
+  {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   programs.zsh =
   {
     enable = true;
@@ -146,5 +150,5 @@
 
   home.username = "lgalloux";
   home.homeDirectory = "/home/lgalloux";
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.11";
 }
