@@ -7,6 +7,7 @@
     ./zen.nix
     ./music.nix
     ./syncthing.nix
+    ./ollama.nix
   ]
   ++ (lib.optionals (osConfig.networking.hostName == "nixos-hypr") 
   [
@@ -22,8 +23,8 @@
   home.packages =
   [
     pkgs.nixd pkgs-unstable.bluetui pkgs.delta
-    pkgs.brave pkgs.obsidian pkgs.man-pages
-    pkgs.man-pages-posix 
+    pkgs.brave pkgs.obsidian pkgs.man-pages 
+    pkgs.man-pages-posix pkgs.aichat
   ];
 
   stylix =
@@ -103,7 +104,7 @@
     shellAliases =
     {
       zathura = "zathura --fork";
-      auditor = "aichat --empty-session";
+      auditor = "ollama run auditor";
     };
     
     oh-my-zsh =

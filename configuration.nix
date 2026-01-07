@@ -27,25 +27,28 @@
     extraGroups = 
     [ 
       "wheel" "networkmanager"
-      "video" "input" "seat" 
+      "video" "input" "seat"
+      "libvirtd" "kvm"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
 
+  virtualisation.libvirtd.enable = true;
   nix.settings.experimental-features=["nix-command" "flakes"];
   security.sudo.extraConfig = ''Defaults !sudoedit_checkdir'';
+  security.rtkit.enable = true;
 
   services =
   {
     xserver.xkb.layout = "us";
+    resolved.enable = true;
+    pulseaudio.enable = false;
     pipewire =
     {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
     };
     udev.extraRules =
     ''
@@ -80,12 +83,14 @@
     hostName = "nixos-hypr";
   };
 
-  services.resolved.enable = true;
-
   hardware =
   {
     graphics.enable = true;
-    bluetooth.enable = true;
+    bluetooth =
+    {
+      enable = true;
+      settings.General.ControllerMode = "bredr";
+    };
   };
 
   time.timeZone = "Europe/Paris";

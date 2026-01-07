@@ -105,7 +105,7 @@ in
       search =
       {
         force = true;
-        default = "Brave";
+        default = "Startpage";
         engines =
         {
           "Brave" =
@@ -120,6 +120,13 @@ in
             urls = [{ template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}"; }];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@np" ];
+          };
+          "Startpage" =
+          {
+            urls = [{ template = "https://www.startpage.com/rvd/search?query={searchTerms}&language=auto"; }];
+            icon = "https://www.startpage.com/sp/cdn/favicons/mobile/android-icon-192x192.png";
+            updateInterval = 24 * 60 * 60 * 1000;
+            definedAliases = [ "@sp" ];
           };
         };
       };
