@@ -1,0 +1,197 @@
+{ config, lib, pkgs, ... }:
+let
+  colors = config.lib.stylix.colors;
+  tmThemeContent = pkgs.writeText "aichat-dark.tmTheme" ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>name</key>
+      <string>Tokyo Night (Stylix)</string>
+      <key>author</key>
+      <string>Stylix Generated</string>
+      <key>colorSpaceName</key>
+      <string>sRGB</string>
+      <key>settings</key>
+      <array>
+        <dict>
+          <key>settings</key>
+          <dict>
+            <key>background</key>
+            <string>#${colors.base00}</string>
+            <key>caret</key>
+            <string>#${colors.base05}</string>
+            <key>foreground</key>
+            <string>#${colors.base05}</string>
+            <key>invisibles</key>
+            <string>#${colors.base03}</string>
+            <key>lineHighlight</key>
+            <string>#${colors.base01}</string>
+            <key>selection</key>
+            <string>#${colors.base02}</string>
+            <key>guide</key>
+            <string>#${colors.base03}</string>
+            <key>activeGuide</key>
+            <string>#${colors.base04}</string>
+            <key>gutterForeground</key>
+            <string>#${colors.base04}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Comments</string>
+          <key>scope</key>
+          <string>comment</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base03}</string>
+            <key>fontStyle</key>
+            <string>italic</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Variables</string>
+          <key>scope</key>
+          <string>variable</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base08}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Keywords</string>
+          <key>scope</key>
+          <string>keyword, storage</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0E}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Operators</string>
+          <key>scope</key>
+          <string>keyword.operator</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0C}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Functions</string>
+          <key>scope</key>
+          <string>entity.name.function, support.function.any-method</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0D}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Classes</string>
+          <key>scope</key>
+          <string>entity.name.class, entity.name.type, support.class</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0A}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Strings</string>
+          <key>scope</key>
+          <string>string</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0B}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Numbers</string>
+          <key>scope</key>
+          <string>constant.numeric</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base09}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Constants</string>
+          <key>scope</key>
+          <string>constant.language, constant.other</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base09}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Tags</string>
+          <key>scope</key>
+          <string>entity.name.tag</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base08}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Attributes</string>
+          <key>scope</key>
+          <string>entity.other.attribute-name</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0D}</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Headings</string>
+          <key>scope</key>
+          <string>markup.heading</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0D}</string>
+            <key>fontStyle</key>
+            <string>bold</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>Links</string>
+          <key>scope</key>
+          <string>markup.underline.link</string>
+          <key>settings</key>
+          <dict>
+            <key>foreground</key>
+            <string>#${colors.base0C}</string>
+          </dict>
+        </dict>
+      </array>
+    </dict>
+    </plist>
+  '';
+in
+{
+  config = lib.mkIf config.stylix.enable
+  {
+    home.file.".config/aichat/dark.tmTheme".source = tmThemeContent;
+  };
+}
