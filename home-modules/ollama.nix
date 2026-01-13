@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  imports = [./aichat-stylix.nix];
   services.ollama =
   {
     enable = true;
@@ -21,7 +22,10 @@
     ./gemma-modelfile;
   xdg.configFile."aichat/config.yaml".source = (pkgs.formats.yaml { }).generate "aichat"
   {
-    model = "ollama:auditor:latest";
+    model = "ollama:gemma:latest";
+    save_session = null;
+    highlight = true;
+    light_theme = false;
     clients =
     [
       {
@@ -31,7 +35,10 @@
         models =
         [
           {
-            name = "auditor:latest";
+            name = "gemma:latest";
+          }
+          {
+            name = "qwen:latest";
           }
         ];
       }
