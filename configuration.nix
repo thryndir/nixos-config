@@ -2,7 +2,7 @@
 {
   imports =
   [
-    ./hardware-configuration.nix
+    /home/lgalloux/nixos/hardware-configuration.nix
     ./sddm-theme.nix
     ./stylix.nix
     inputs.stylix.nixosModules.stylix
