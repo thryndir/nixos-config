@@ -27,10 +27,19 @@
   {
     enable = true;
     xwayland.enable = true;
-
     settings =
     {
-      monitor = ",preferred,auto,1";
+      monitor = ", preferred, auto, 1, bitdepth, 10";
+      exec-once = "noctalia-shell";
+      env =
+      [
+        "XDG_SESSION_TYPE,wayland"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+        "NIXOS_OZONE_WL,1"
+        "MOZ_ENABLE_WAYLAND,1"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+      ];
 
       general =
       {
@@ -84,7 +93,7 @@
 
       bind =
       [
-        "$mainMod, Return, exec, kitty"
+        "$mainMod, Return, exec, alacritty"
         "$mainMod, Q, killactive"
         "$mainMod, F, togglefloating"
         "$mainMod, P, pseudo"

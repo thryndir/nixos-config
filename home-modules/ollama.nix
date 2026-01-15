@@ -4,12 +4,11 @@
   services.ollama =
   {
     enable = true;
-    acceleration = false;
+    acceleration = "cuda";
     environmentVariables =
     {
       OLLAMA_MODELS = "${config.home.homeDirectory}/.cache/ollama/models";
       OLLAMA_NUM_THREAD = "8";
-      OLLAMA_NUM_GPU = "0";
       OLLAMA_NUM_PARALLEL = "2";
       OLLAMA_KEEP_ALIVE = "10m";
       OLLAMA_MAX_QUEUE = "4";

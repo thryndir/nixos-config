@@ -1,7 +1,8 @@
 FROM gemma3:12b-it-q4_K_M
 
-PARAMETER temperature 0.1
-PARAMETER num_ctx 4096
+PARAMETER temperature 0.2
+PARAMETER num_ctx 8192
+PARAMETER num_gpu 33
 PARAMETER repeat_penalty 1.2
 
 SYSTEM """

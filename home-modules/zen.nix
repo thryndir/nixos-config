@@ -121,6 +121,12 @@ in
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@np" ];
           };
+          "Nix Options" =
+          {
+            urls = [{ template = "https://search.nixos.org/options?channel=25.11&query={searchTerms}";}];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@no" ];
+          };
           "Startpage" =
           {
             urls = [{ template = "https://www.startpage.com/rvd/search?query={searchTerms}&language=auto"; }];

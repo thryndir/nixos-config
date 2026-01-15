@@ -7,7 +7,7 @@
 
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
 
     settings = {
       settingsVersion = 23;

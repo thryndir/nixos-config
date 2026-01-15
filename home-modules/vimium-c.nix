@@ -22,6 +22,7 @@
       "map gl scrollRight count=9999"
       "map gn nextTab"
       "map gp previousTab"
+      "map v LinkHints.activateModeToSelect"
       ""
     ];
     vimSync = true;

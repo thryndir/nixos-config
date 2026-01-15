@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 {
   imports =
   [
@@ -18,6 +18,7 @@
   programs =
   {
     hyprland.enable = true;
+    xwayland.enable = true;
     hyprland.xwayland.enable = true;
     zsh.enable = true;
   };
@@ -42,13 +43,16 @@
   services =
   {
     xserver.xkb.layout = "us";
+    xserver.videoDrivers = [ "nvidia" ];
     resolved.enable = true;
     pulseaudio.enable = false;
+    flatpak.enable = true;
     pipewire =
     {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
+      wireplumber.enable = true;
     };
     udev.extraRules =
     ''
@@ -74,6 +78,22 @@
     upower.enable = true;
   };
 
+  # xdg.portal =
+  # {
+  #   enable = true;
+  #   xdgOpenUsePortal = true;
+  #   extraPortals =
+  #   [
+  #     pkgs.xdg-desktop-portal-hyprland
+  #     pkgs.xdg-desktop-portal-gtk
+  #   ];
+  #   config =
+  #   {
+  #     common.default = [ "gtk" ];
+  #     hyprland.default = [ "hyprland" "gtk" ];
+  #   };
+  # };
+
   console.keyMap = "us";
   fonts.packages = with pkgs; [ noto-fonts noto-fonts-color-emoji ];
 
@@ -85,6 +105,15 @@
 
   hardware =
   {
+    nvidia =
+    {
+      modesetting.enable = true;
+      open = true;
+      powerManagement.enable = false;
+      nvidiaPersistenced = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
     graphics.enable = true;
     bluetooth =
     {

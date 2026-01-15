@@ -2,7 +2,6 @@
 {
   imports =
   [
-    ./kitty.nix
     ./helix.nix
     ./zen.nix
     ./music.nix
@@ -25,6 +24,7 @@
     pkgs.nixd pkgs-unstable.bluetui pkgs.delta
     pkgs.brave pkgs.obsidian pkgs.man-pages 
     pkgs.man-pages-posix pkgs.aichat
+    pkgs.htop pkgs.nvtopPackages.nvidia
   ];
 
   stylix =
@@ -34,6 +34,22 @@
     targets.hyprland.enable = false;
   };
 
+  xdg.portal =
+  {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals =
+    [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config =
+    {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "hyprland" "gtk" ];
+    };
+  };
+  
   programs.git =
   {
     enable = true;
@@ -46,6 +62,11 @@
       push.autoSetupRemote = true;
       commit.gpgSigh = true;
     };
+  };
+
+  programs.alacritty =
+  {
+    enable = true;
   };
 
   programs.delta =
@@ -139,13 +160,6 @@
       recolor = true;
       recolor-keephue = true;
       recolor-reverse-video = true;
-    };
-    mappings =
-    {
-      "<C-d>" = "scroll half-down";
-      "<C-u>" = "scroll half-up";
-      "<C-f>" = "scroll full-down";
-      "<C-b>" = "scroll full-up";
     };
   };
 
