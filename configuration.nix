@@ -20,6 +20,7 @@
     hyprland.enable = true;
     xwayland.enable = true;
     hyprland.xwayland.enable = true;
+    steam.enable = true;
     zsh.enable = true;
   };
 
@@ -77,22 +78,6 @@
     power-profiles-daemon.enable = true;
     upower.enable = true;
   };
-
-  # xdg.portal =
-  # {
-  #   enable = true;
-  #   xdgOpenUsePortal = true;
-  #   extraPortals =
-  #   [
-  #     pkgs.xdg-desktop-portal-hyprland
-  #     pkgs.xdg-desktop-portal-gtk
-  #   ];
-  #   config =
-  #   {
-  #     common.default = [ "gtk" ];
-  #     hyprland.default = [ "hyprland" "gtk" ];
-  #   };
-  # };
 
   console.keyMap = "us";
   fonts.packages = with pkgs; [ noto-fonts noto-fonts-color-emoji ];

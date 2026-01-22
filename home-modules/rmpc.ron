@@ -1,3 +1,6 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
 (
     password: None,
     theme: None,
@@ -43,8 +46,8 @@
             ",":       VolumeDown,
             "s":       TogglePause,
             ".":       VolumeUp,
-            "L":      NextTab,
-            "N":      PreviousTab,
+            "gn":      NextTab,
+            "gp":      PreviousTab,
             "1":       SwitchToTab("Queue"),
             "2":       SwitchToTab("Playlists"),
             "3":       SwitchToTab("Directories"),
@@ -88,8 +91,8 @@
             "<C-j>":     PaneDown,
             "<C-h>":     PaneLeft,
             "<C-l>":     PaneRight,
-            "n":         NextResult,
-            "p":         PreviousResult,
+            "L":         NextResult,
+            "H":         PreviousResult,
             "<C-u>":     UpHalf,
             "a":         Add,
             "A":         AddAll,

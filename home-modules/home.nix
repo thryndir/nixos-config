@@ -87,6 +87,11 @@
     enableDefaultConfig = false;
     matchBlocks =
     {
+      archVm =
+      {
+        hostname = "192.168.122.23";
+        user = "lgalloux";
+      };
       github =
       {
         host = "github.com";
