@@ -95,7 +95,7 @@
       [
         "$mainMod, Return, exec, alacritty"
         "$mainMod, Q, killactive"
-        "$mainMod, F, togglefloating"
+        "$mainMod, F, fullscreen"
         "$mainMod, P, pseudo"
         "$mainMod, V, togglesplit"
         

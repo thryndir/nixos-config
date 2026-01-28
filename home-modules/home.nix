@@ -33,6 +33,8 @@
     targets.helix.enable = false;
     targets.hyprland.enable = false;
   };
+  
+  services.ssh-agent.enable = true;
 
   xdg.portal =
   {
@@ -85,20 +87,6 @@
   {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks =
-    {
-      archVm =
-      {
-        hostname = "192.168.122.23";
-        user = "lgalloux";
-      };
-      github =
-      {
-        host = "github.com";
-        identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519_github";
-        identitiesOnly = true;
-      };
-    };
   };
 
   programs.zoxide =
