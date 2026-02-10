@@ -23,8 +23,9 @@
   [
     pkgs.nixd pkgs-unstable.bluetui pkgs.delta
     pkgs.brave pkgs.obsidian pkgs.man-pages 
-    pkgs.man-pages-posix pkgs.aichat
-    pkgs.htop pkgs.nvtopPackages.nvidia
+    pkgs.man-pages-posix pkgs.htop
+    pkgs.nvtopPackages.nvidia pkgs.typst
+    pkgs.tinymist pkgs.d2 pkgs.bat pkgs.ripgrep
   ];
 
   stylix =
@@ -90,12 +91,6 @@
   };
 
   programs.zoxide =
-  {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.yazi =
   {
     enable = true;
     enableZshIntegration = true;

@@ -44,6 +44,7 @@
   services =
   {
     xserver.xkb.layout = "us";
+    xserver.xkb.variant = "altgr-intl";
     xserver.videoDrivers = [ "nvidia" ];
     resolved.enable = true;
     pulseaudio.enable = false;

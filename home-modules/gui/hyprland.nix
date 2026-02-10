@@ -1,6 +1,5 @@
 { config, ... }:
 {
-
   home.file.".wallpaper/tokyonight.png" =
   {
     source = ../../tokyonight.png;
@@ -29,7 +28,7 @@
     xwayland.enable = true;
     settings =
     {
-      monitor = [ ", preferred, auto-up, 1" "Unknown-2, 2560x1600, auto, 1.33" ];
+      monitor = [ ", preferred, auto-up, 1" "Unknown-2, 2560x1600@144, auto, 1.33" ];
       exec-once = "noctalia-shell";
       env =
       [
@@ -73,6 +72,7 @@
       input =
       {
         kb_layout = "us";
+        kb_variant = "altgr-intl";
         follow_mouse = 1;
         touchpad.natural_scroll = true;
       };
