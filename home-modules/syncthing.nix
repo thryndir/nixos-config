@@ -11,7 +11,7 @@
     {
       "myPhone" =
       {
-        id = "2NZATRD-W5IEAFX-6QZE4XJ-RPC7ZUQ-VZS5KY6-DBA2Q6S-5NLSKPO-FOZLOAR";
+        id = "W3XMLW3-Y3G3S54-GC2FNGU-VDL6U64-UTWOKFH-HMQZVPK-PFKE5TD-UJXPVAT";
         autoAcceptFolders = true;
       };
     };

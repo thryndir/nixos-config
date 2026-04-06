@@ -216,11 +216,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1770115704,
-        "narHash": "sha256-KHFT9UWOF2yRPlAnSXQJh6uVcgNcWlFqqiAZ7OVlHNc=",
+        "lastModified": 1775036866,
+        "narHash": "sha256-ZojAnPuCdy657PbTq5V0Y+AHKhZAIwSIT2cb8UgAz/U=",
         "owner": "NixOs",
         "repo": "nixpkgs",
-        "rev": "e6eae2ee2110f3d31110d5c222cd395303343b08",
+        "rev": "6201e203d09599479a3b3450ed24fa81537ebc4e",
         "type": "github"
       },
       "original": {
@@ -319,7 +319,6 @@
         "noctalia": "noctalia",
         "nur": "nur",
         "stylix": "stylix",
-        "tokyonight-sddm-src": "tokyonight-sddm-src",
         "zen-browser": "zen-browser",
         "zsh-nix-shell": "zsh-nix-shell"
       }
@@ -452,22 +451,6 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
-        "type": "github"
-      }
-    },
-    "tokyonight-sddm-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1686823900,
-        "narHash": "sha256-JRVVzyefqR2L3UrEK2iWyhUKfPMUNUnfRZmwdz05wL0=",
-        "owner": "rototrash",
-        "repo": "tokyo-night-sddm",
-        "rev": "320c8e74ade1e94f640708eee0b9a75a395697c6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rototrash",
-        "repo": "tokyo-night-sddm",
         "type": "github"
       }
     },

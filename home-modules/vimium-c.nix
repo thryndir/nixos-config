@@ -9,7 +9,7 @@
     {
       extension = "2.12.3";
       platform = "linux";
-      firefox = 145;
+      firefox = 146;
     };
     exclusionRules = [];
     keyLayout = 2;

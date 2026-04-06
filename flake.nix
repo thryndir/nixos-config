@@ -33,11 +33,6 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    tokyonight-sddm-src =
-    {
-      url = "github:rototrash/tokyo-night-sddm";
-      flake = false;
-    };
     blissify-rs-src =
     {
       url = "github:Polochon-street/blissify-rs";

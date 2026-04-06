@@ -28,7 +28,7 @@
     xwayland.enable = true;
     settings =
     {
-      monitor = [ ", preferred, auto-up, 1" "Unknown-2, 2560x1600@144, auto, 1.33" ];
+      monitor = [ ", preferred, auto-up, 1" "DP-2, 2560x1600@144, auto, 1.33" ];
       exec-once = "noctalia-shell";
       env =
       [

@@ -105,9 +105,13 @@ in
       search =
       {
         force = true;
-        default = "Startpage";
+        default = "Searxng";
         engines =
         {
+          "Searxng" =
+          {
+            urls = [{ template = "http://127.0.0.1:8888/search?q={searchTerms}";}];
+          };
           "Brave" =
           {
             urls = [{ template = "https://search.brave.com/search?q={searchTerms}"; }];

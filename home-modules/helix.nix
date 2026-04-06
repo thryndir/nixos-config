@@ -98,5 +98,27 @@
         "C-x" = ":buffer-close";
       };
     };
+
+    languages =
+    {
+      language-server.zk =
+      {
+        command = "zk";
+        args = ["lsp"];
+      };
+      language =
+      [
+        {
+          name = "markdown";
+          language-servers = ["zk"];
+          auto-format = true;
+          formatter =
+          {
+            command = "prettier";
+            args = ["--parser" "markdown"];
+          };
+        }
+      ];
+    };
   };
 }

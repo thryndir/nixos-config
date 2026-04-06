@@ -7,6 +7,7 @@
     ./music.nix
     ./syncthing.nix
     ./ollama.nix
+    ./zk.nix
   ]
   ++ (lib.optionals (osConfig.networking.hostName == "nixos-hypr") 
   [
@@ -24,8 +25,10 @@
     pkgs.nixd pkgs-unstable.bluetui pkgs.delta
     pkgs.brave pkgs.obsidian pkgs.man-pages 
     pkgs.man-pages-posix pkgs.htop
-    pkgs.nvtopPackages.nvidia pkgs.typst
-    pkgs.tinymist pkgs.d2 pkgs.bat pkgs.ripgrep
+    pkgs.nvtopPackages.amd pkgs.typst
+    pkgs.tinymist pkgs.d2 pkgs.vivify
+    pkgs.ripgrep pkgs.fzf pkgs.visidata pkgs.pandoc
+    pkgs.prettier
   ];
 
   stylix =

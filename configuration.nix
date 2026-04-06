@@ -14,6 +14,8 @@
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 8;
   };
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   programs =
   {
@@ -30,13 +32,24 @@
     [ 
       "wheel" "networkmanager"
       "video" "input" "seat"
-      "libvirtd" "kvm"
+      "libvirtd" "kvm" "docker"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
 
-  virtualisation.libvirtd.enable = true;
+  virtualisation =
+  {
+    docker.enable = true;
+    libvirtd.enable = true;
+    oci-containers.containers.docker =
+    {
+      image = "itzcrazykns1337/vane:slim-latest";
+      ports = [ "3000:3000" ];
+      extraOptions = [ "--add-host=host.docker.internal:host-gateway" ];
+      volumes = [ "data:/home/vane/data" ];
+    };
+  };
   nix.settings.experimental-features=["nix-command" "flakes"];
   security.sudo.extraConfig = ''Defaults !sudoedit_checkdir'';
   security.rtkit.enable = true;
@@ -45,7 +58,7 @@
   {
     xserver.xkb.layout = "us";
     xserver.xkb.variant = "altgr-intl";
-    xserver.videoDrivers = [ "nvidia" ];
+    xserver.videoDrivers = [ "amdgpu" ];
     resolved.enable = true;
     pulseaudio.enable = false;
     flatpak.enable = true;
@@ -65,17 +78,48 @@
       home =
       {
         SUBVOLUME = "/home";  # Chemin du subvolume BTRFS à snapshoter
+        QGROUP = "1/8";
+        SPACE_LIMIT = "100 GiB";
         ALLOW_USERS = [ "lgalloux" ];  # Lecture snapshots sans sudo
         TIMELINE_CREATE = true;
         TIMELINE_CLEANUP = true;  # Nettoyage auto
-        TIMELINE_LIMIT_HOURLY = "5";
-        TIMELINE_LIMIT_DAILY = "7";
-        TIMELINE_LIMIT_WEEKLY = "4";
-        TIMELINE_LIMIT_MONTHLY = "3";
-        CLEANUP_ALGORITHM = "timeshift";  # Stratégie de rétention
+        TIMELINE_LIMIT_HOURLY = "2-5";
+        TIMELINE_LIMIT_DAILY = "2-7";
+        TIMELINE_LIMIT_WEEKLY = "1-4";
+        TIMELINE_LIMIT_MONTHLY = "1-3";
+        TIMELINE_MIN_AGE = "0";
       };
     };
-
+    searx =
+    {
+      enable = true;
+      package = pkgs.searxng;
+      environmentFile = "/home/lgalloux/.config/secrets/searxng.env";
+      settings =
+      {
+        general.debug = false;
+        server.bind_address = "0.0.0.0";
+        search =
+        {
+          formats =
+          [
+            "html"
+            "json"
+          ];
+        };
+        engines =
+        [
+          {
+            name = "wolframalpha";
+            shortcut = "wa";
+            engine = "wolframalpha_noapi";
+            timeout = 6.0;
+            categories = "science";
+            disabled = false;
+          }
+        ];
+      };
+    };
     power-profiles-daemon.enable = true;
     upower.enable = true;
   };
@@ -86,21 +130,18 @@
   networking =
   {
     networkmanager.enable = true;
+    firewall =
+    {
+      trustedInterfaces = [ "podman0" ];
+      allowedTCPPorts = [ 11434 8888 ];
+    };
     hostName = "nixos-hypr";
   };
 
   hardware =
   {
-    nvidia =
-    {
-      modesetting.enable = true;
-      open = true;
-      powerManagement.enable = false;
-      nvidiaPersistenced = true;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-    };
     graphics.enable = true;
+    graphics.enable32Bit = true;
     bluetooth =
     {
       enable = true;
