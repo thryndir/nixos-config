@@ -15,7 +15,7 @@
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 8;
   };
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6; # pour eviter le probleme du bluetooth sur ma mb
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6; # to avoid bluetooth issues on my mb
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   programs =
@@ -151,7 +151,7 @@
     bluetooth =
     {
       enable = true;
-      settings.General.ControllerMode = "bredr";
+      settings.General.ControllerMode = "bredr"; #issue with bluetooth connection
     };
   };
 

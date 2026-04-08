@@ -30,7 +30,7 @@
       {
         "gemma4-26b" =
         {
-          cmd = "\${base_cmd} -m \${models_path}/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf -c 131072 -ngl all --cache-ram 0 --ctx-checkpoints 0";
+          cmd = "\${base_cmd} -m \${models_path}/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf -c 65536 -ngl all --cache-ram 0 --ctx-checkpoints 0";
           aliases = [ "gpt-3.5-turbo" "gpt-4" ];
           ttl = 300;
           filters =

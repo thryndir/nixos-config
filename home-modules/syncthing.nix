@@ -18,17 +18,17 @@
     folders =
     {
       "music-id" =
-      {  # ID unique (doit être le même sur ton tel)
+      {
         path = "${config.home.homeDirectory}/Music";
         label = "Music";
-        type = "sendreceive"; # Bidirectionnel
+        type = "sendreceive";
         versioning =
         {
-          type = "staggered"; # Le fameux backup de sécurité
+          type = "staggered";
           params =
           {
             cleanInterval = "3600";
-            maxAge = "15552000"; # Garde les versions 180 jours
+            maxAge = "15552000";
           };
         };
       };
@@ -36,14 +36,14 @@
       {
         path = "${config.home.homeDirectory}/2nd_Brain";
         label = "Notes";
-        type = "sendreceive"; # Bidirectionnel
+        type = "sendreceive";
         versioning =
         {
-          type = "staggered"; # Le fameux backup de sécurité
+          type = "staggered";
           params =
           {
             cleanInterval = "3600";
-            maxAge = "15552000"; # Garde les versions 180 jours
+            maxAge = "15552000";
           };
         };
       };

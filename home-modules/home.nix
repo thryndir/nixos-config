@@ -27,7 +27,7 @@
     pkgs.nvtopPackages.amd pkgs.typst
     pkgs.tinymist pkgs.d2 pkgs.vivify
     pkgs.ripgrep pkgs.fzf pkgs.visidata pkgs.pandoc
-    pkgs.prettier pkgs.killall
+    pkgs.prettier pkgs.killall pkgs.slurp pkgs.grim
   ];
 
   stylix =

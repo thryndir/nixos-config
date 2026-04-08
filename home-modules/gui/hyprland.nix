@@ -2,7 +2,7 @@
 {
   home.file.".wallpaper/tokyonight.png" =
   {
-    source = ../../tokyonight.png;
+    source = ../../assets/tokyonight.png;
     target = ".wallpaper/tokyonight.png";
   };
 
