@@ -29,7 +29,8 @@
           after-delay.enable = false;
         };
 
-        cursor-shape = {
+        cursor-shape =
+        {
           insert = "bar";
           normal = "block";
           select = "underline";

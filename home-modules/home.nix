@@ -6,7 +6,6 @@
     ./zen.nix
     ./music.nix
     ./syncthing.nix
-    ./ollama.nix
     ./zk.nix
   ]
   ++ (lib.optionals (osConfig.networking.hostName == "nixos-hypr") 
@@ -28,7 +27,7 @@
     pkgs.nvtopPackages.amd pkgs.typst
     pkgs.tinymist pkgs.d2 pkgs.vivify
     pkgs.ripgrep pkgs.fzf pkgs.visidata pkgs.pandoc
-    pkgs.prettier
+    pkgs.prettier pkgs.killall
   ];
 
   stylix =
@@ -116,7 +115,6 @@
     shellAliases =
     {
       zathura = "zathura --fork";
-      auditor = "ollama run auditor";
     };
     
     oh-my-zsh =

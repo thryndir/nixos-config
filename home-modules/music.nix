@@ -61,7 +61,8 @@ in
   services.mpdscribble =
   {
     enable = true;
-    endpoints = {
+    endpoints =
+    {
       "last.fm" = {
         username = "thryndir";
         passwordFile = "/home/lgalloux/.config/secrets/lastfm_pass";

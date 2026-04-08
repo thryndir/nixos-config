@@ -5,6 +5,7 @@
     /home/lgalloux/nixos/hardware-configuration.nix
     ./sddm-theme.nix
     ./stylix.nix
+    ./llama.nix
     inputs.stylix.nixosModules.stylix
   ];
 
@@ -14,7 +15,7 @@
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 8;
   };
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6; # pour eviter le probleme du bluetooth sur ma mb
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   programs =
@@ -32,7 +33,7 @@
     [ 
       "wheel" "networkmanager"
       "video" "input" "seat"
-      "libvirtd" "kvm" "docker"
+      "libvirtd" "kvm" "podman"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -40,9 +41,15 @@
 
   virtualisation =
   {
-    docker.enable = true;
+    podman =
+    {
+      enable = true;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
     libvirtd.enable = true;
-    oci-containers.containers.docker =
+    oci-containers.containers.vane =
     {
       image = "itzcrazykns1337/vane:slim-latest";
       ports = [ "3000:3000" ];
@@ -77,12 +84,12 @@
     {
       home =
       {
-        SUBVOLUME = "/home";  # Chemin du subvolume BTRFS à snapshoter
+        SUBVOLUME = "/home";
         QGROUP = "1/8";
         SPACE_LIMIT = "100 GiB";
-        ALLOW_USERS = [ "lgalloux" ];  # Lecture snapshots sans sudo
+        ALLOW_USERS = [ "lgalloux" ];
         TIMELINE_CREATE = true;
-        TIMELINE_CLEANUP = true;  # Nettoyage auto
+        TIMELINE_CLEANUP = true;
         TIMELINE_LIMIT_HOURLY = "2-5";
         TIMELINE_LIMIT_DAILY = "2-7";
         TIMELINE_LIMIT_WEEKLY = "1-4";
@@ -133,7 +140,6 @@
     firewall =
     {
       trustedInterfaces = [ "podman0" ];
-      allowedTCPPorts = [ 11434 8888 ];
     };
     hostName = "nixos-hypr";
   };
@@ -153,7 +159,7 @@
 
   environment.systemPackages = with pkgs;
   [
-    vim git
+    vim git podman-compose
   ];
 
   system.stateVersion = "24.11";
