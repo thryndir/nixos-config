@@ -103,6 +103,10 @@
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
+    config =
+    {
+      "warn_timeout" = 0;
+    };
   };
 
   programs.zsh =
@@ -152,7 +156,14 @@
     };
   };
 
-  home.username = "lgalloux";
-  home.homeDirectory = "/home/lgalloux";
-  home.stateVersion = "25.11";
+  home =
+  {
+    username = "lgalloux";
+    homeDirectory = "/home/lgalloux";
+    stateVersion = "25.11";
+    sessionPath =
+    [
+      "$HOME/.local/bin" 
+    ];
+  };
 }

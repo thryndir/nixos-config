@@ -6,6 +6,7 @@
     ./sddm-theme.nix
     ./stylix.nix
     ./llama.nix
+    ./udev-stm32.nix
     inputs.stylix.nixosModules.stylix
   ];
 
@@ -27,13 +28,20 @@
     zsh.enable = true;
   };
 
+  users.groups.lgalloux.members =
+  [
+    "lgalloux"
+  ];
+
   users.users.lgalloux =
   {
+    group = "lgalloux";
     extraGroups = 
     [ 
       "wheel" "networkmanager"
       "video" "input" "seat"
       "libvirtd" "kvm" "podman"
+      "users"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;

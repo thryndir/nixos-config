@@ -23,7 +23,6 @@
       "map gn nextTab"
       "map gp previousTab"
       "map v LinkHints.activateModeToSelect"
-      ""
     ];
     vimSync = true;
   };
