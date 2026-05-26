@@ -82,9 +82,9 @@ in
         "zen.tabs.show-newtab-vertical" = false;
         # Broswer
         "browser.ctrlTab.sortByRecentlyUsed" = false;
-        "browser.display.background_color" = colors.withHashtag.base00;
-        "browser.display.foreground_color" = colors.withHashtag.base05;
-        "browser.display.document_color_use" = 2;
+        # "browser.display.background_color" = colors.withHashtag.base00;
+        # "browser.display.foreground_color" = colors.withHashtag.base05;
+        # "browser.display.document_color_use" = 2;
         "browser.anchor_color" = colors.withHashtag.base0C;
         "browser.visited_color" = colors.withHashtag.base0D;
         #Others

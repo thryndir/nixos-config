@@ -25,6 +25,7 @@
     xwayland.enable = true;
     hyprland.xwayland.enable = true;
     steam.enable = true;
+    gamescope.enable = true;
     zsh.enable = true;
   };
 
@@ -76,6 +77,7 @@
     xserver.videoDrivers = [ "amdgpu" ];
     resolved.enable = true;
     pulseaudio.enable = false;
+    syncthing.openDefaultPorts = true;
     flatpak.enable = true;
     pipewire =
     {
@@ -93,16 +95,19 @@
       home =
       {
         SUBVOLUME = "/home";
-        QGROUP = "1/8";
-        SPACE_LIMIT = "100 GiB";
         ALLOW_USERS = [ "lgalloux" ];
         TIMELINE_CREATE = true;
         TIMELINE_CLEANUP = true;
-        TIMELINE_LIMIT_HOURLY = "2-5";
-        TIMELINE_LIMIT_DAILY = "2-7";
-        TIMELINE_LIMIT_WEEKLY = "1-4";
-        TIMELINE_LIMIT_MONTHLY = "1-3";
-        TIMELINE_MIN_AGE = "0";
+        TIMELINE_LIMIT_HOURLY = "4";   # Garde les 4 dernières heures
+        TIMELINE_LIMIT_DAILY = "3";    # Garde les 3 derniers jours
+        TIMELINE_LIMIT_WEEKLY = "2";   # Garde les 2 dernières semaines
+        TIMELINE_LIMIT_MONTHLY = "1";  # Garde le dernier mois
+        TIMELINE_LIMIT_YEARLY = "0";
+        TIMELINE_MIN_AGE = "1800";     # (Optionnel) Ne supprime pas les snapshots de moins de 30 min
+        NUMBER_CLEANUP = true;
+        NUMBER_LIMIT = "5";            # Limite stricte de snapshots normaux
+        NUMBER_LIMIT_IMPORTANT = "2";
+        EMPTY_PRE_POST_CLEANUP = true;
       };
     };
     searx =
