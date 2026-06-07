@@ -16,7 +16,7 @@
   ++ (lib.optionals (osConfig.networking.hostName != "nixos-hypr")
   [
      inputs.stylix.homeModules.stylix
-     ./stylix.nix
+     ../stylix.nix
   ]);
     
   home.packages =

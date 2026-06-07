@@ -119,6 +119,15 @@
             args = ["--parser" "markdown"];
           };
         }
+        {
+          name = "cpp";
+          language-servers = ["clangd"];
+          auto-format = true;
+          formatter =
+          {
+            command = "clang-format";
+          };
+        }
       ];
     };
   };

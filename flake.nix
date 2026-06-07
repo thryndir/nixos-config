@@ -96,7 +96,16 @@
           networking.hostName = "standalone-pc";
         };
       };
-      modules = [ ./home-modules/home.nix ];
+      modules =
+      [
+        ./home-modules/home.nix
+        {
+          nixpkgs.overlays =
+          [
+            inputs.nur.overlays.default
+          ];
+        }
+      ];
     };
   };
 }

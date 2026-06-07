@@ -42,8 +42,8 @@
 
       general =
       {
-        gaps_in = 3;
-        gaps_out = 8;
+        gaps_in = 0;
+        gaps_out = 0;
         border_size = 3;
         "col.active_border" = "rgba(7aa2f7ee) rgba(bb9af7ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
